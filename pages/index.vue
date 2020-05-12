@@ -47,6 +47,7 @@
 
 <script>
 import {mapMutations} from 'vuex'
+import error from "../layouts/error";
 export default {
   layout: 'empty',
   head: {
@@ -77,6 +78,16 @@ export default {
           name: this.name,
           room: this.room
         }
+
+        this.$socket.emit('userJoined', user, data => {
+          if (typeof data === 'string') {
+            console.error(data)
+          } else {
+            user.id = data.userId
+            this.setUser(user)
+            this.$router.push("/chat")
+          }
+        })
 
         this.setUser(user)
         this.$router.push('/chat')
