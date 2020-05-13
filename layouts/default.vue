@@ -1,6 +1,6 @@
 <template>
   <v-app app dark>
-    <v-navigation-drawer app v-model="drawer">
+    <v-card app v-model="drawer" mobile-break-point="650">
       <v-list subheader>
         <v-subheader>Recent chat</v-subheader>
 
@@ -18,7 +18,7 @@
           </v-list-item-icon>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-card>
     <v-toolbar>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon @click="exit">
@@ -27,7 +27,7 @@
       <v-toolbar-title>Room {{user.room}}</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <div>
+      <div style="height: 100%">
         <nuxt />
       </div>
     </v-content>
