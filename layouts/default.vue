@@ -1,6 +1,6 @@
 <template>
   <v-app app dark>
-    <v-card app v-model="drawer" mobile-break-point="650">
+    <v-navigation-drawer app v-model="drawer" mobile-break-point="650"> <!-- need to refactor: mess with drawer better use simple div or table -->
       <v-list subheader>
         <v-subheader>Recent chat</v-subheader>
 
@@ -18,8 +18,8 @@
           </v-list-item-icon>
         </v-list-item>
       </v-list>
-    </v-card>
-    <v-toolbar>
+    </v-navigation-drawer>
+    <v-toolbar dense>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon @click="exit">
         Exit
