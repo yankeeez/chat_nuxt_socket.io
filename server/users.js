@@ -18,7 +18,7 @@ class Users {
       this.users = this.users.filter(user => user.id !== id)
     }
 
-    return user //strange maybe need to refactor
+    return user //need for message 'user has left room'
   }
 
   getByRoom(room) {

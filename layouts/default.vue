@@ -5,16 +5,16 @@
         <v-subheader>Recent chat</v-subheader>
 
         <v-list-item
-          v-for="user in users"
-          :key="user.id"
+          v-for="u in users"
+          :key="u.id"
           @click.prevent="true"
         >
           <v-list-item-content>
-            <v-list-item-title>{{user.name}}</v-list-item-title>
+            <v-list-item-title>{{u.name}}</v-list-item-title>
           </v-list-item-content>
 
           <v-list-item-icon>
-            <v-icon :color="user.id === 2 ? 'deep-purple accent-4' : 'grey'">chat_bubble</v-icon>
+            <v-icon :color="u.id === user.id ? 'primary' : 'grey'">chat_bubble</v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list>
@@ -39,17 +39,15 @@
 export default {
   data: () => ({
     drawer: false,
-    users: [
-      {id: 1, name: 'user 1'},
-      {id: 2, name: 'user 2'},
-    ]
   }),
-  computed: mapState(['user']),
+  computed: mapState(['user', 'users']),
   methods: {
     ...mapMutations(['clearData']),
     exit() {
-      this.$router.push('/?message=leftChat')
-      this.clearData()
+      this.$socket.emit('userLeft', this.user.id, () => {
+        this.$router.push('/?message=leftChat')
+        this.clearData()
+      })
     }
   }
 }
