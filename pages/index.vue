@@ -9,6 +9,21 @@
       sm8
     >
     <v-card min-width="400">
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="6000"
+        top
+      >
+        {{ message }}
+        <v-btn
+          color="pink"
+          text
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+
       <v-card-title>Nuxt chat</v-card-title>
       <v-card-text></v-card-text>
       <v-form
@@ -60,6 +75,8 @@ export default {
   },
   data: () => ({
     valid: true,
+    snackbar: false,
+    message: '',
     name: '',
     nameRules: [
       v => !!v || 'Name is required',
@@ -70,6 +87,16 @@ export default {
       v => !!v || 'Chooser a room',
     ],
   }),
+  mounted() {
+    const {message} = this.$route.query
+    if (message === 'noUser')  {
+      this.message = 'Enter your credentials'
+    }
+    if (message === 'leftChat') {
+      this.message = 'You are disconnected from chat'
+    }
+    this.snackbar = !!this.message
+  },
   methods: {
     ...mapMutations(['setUser']),
     submit () {
